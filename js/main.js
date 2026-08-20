@@ -6,20 +6,21 @@ let points = 0;
 
 
 // =========================
-// ELEMENTE AUS HTML HOLEN
+// HTML-ELEMENTE
 // =========================
 
 const pointsDisplay = document.getElementById("points");
+
 const feedButton = document.getElementById("feedButton");
 const chessButton = document.getElementById("chessButton");
 const shopButton = document.getElementById("shopButton");
 
-const character = document.querySelector(".character");
+const character = document.getElementById("character");
 const speech = document.querySelector(".speech");
 
 
 // =========================
-// PUNKTE ANZEIGEN
+// PUNKTE
 // =========================
 
 function updatePoints() {
@@ -28,11 +29,53 @@ function updatePoints() {
 
 
 // =========================
-// CHARAKTER SPRECHEN LASSEN
+// CHARAKTER SPRECHEN
 // =========================
 
 function characterSpeak(message) {
     speech.textContent = message;
+}
+
+
+// =========================
+// CHARAKTER-ZUSTAND
+// =========================
+
+function setCharacterState(state) {
+
+    switch (state) {
+
+        case "normal":
+            character.textContent = "🧸";
+            break;
+
+        case "happy":
+            character.textContent = "😊";
+            break;
+
+        case "sad":
+            character.textContent = "😢";
+            break;
+
+        case "thinking":
+            character.textContent = "🤔";
+            break;
+
+        case "eating":
+            character.textContent = "😋";
+            break;
+
+        case "celebrating":
+            character.textContent = "🥳";
+            break;
+
+        case "sleeping":
+            character.textContent = "😴";
+            break;
+
+        default:
+            character.textContent = "🧸";
+    }
 }
 
 
@@ -42,22 +85,34 @@ function characterSpeak(message) {
 
 feedButton.addEventListener("click", function() {
 
+    setCharacterState("eating");
+
     characterSpeak("Mmmh! Das war lecker! 😋");
 
-    character.textContent = "😋";
+    setTimeout(function() {
+
+        setCharacterState("happy");
+
+        characterSpeak("Danke! 😊");
+
+    }, 1500);
 
     setTimeout(function() {
-        character.textContent = "🧸";
-    }, 1500);
+
+        setCharacterState("normal");
+
+    }, 3000);
 
 });
 
 
 // =========================
-// SCHACH-SPIELEN BUTTON
+// SCHACH
 // =========================
 
 chessButton.addEventListener("click", function() {
+
+    setCharacterState("happy");
 
     characterSpeak("Bald spielen wir Schach! ♟️");
 
@@ -65,10 +120,12 @@ chessButton.addEventListener("click", function() {
 
 
 // =========================
-// SHOP BUTTON
+// SHOP
 // =========================
 
 shopButton.addEventListener("click", function() {
+
+    setCharacterState("happy");
 
     characterSpeak("Unser Shop kommt bald! 🛍️");
 
@@ -76,7 +133,9 @@ shopButton.addEventListener("click", function() {
 
 
 // =========================
-// START
+// STARTZUSTAND
 // =========================
+
+setCharacterState("normal");
 
 updatePoints();
